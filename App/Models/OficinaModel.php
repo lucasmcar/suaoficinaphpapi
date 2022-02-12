@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use App\Bean\OficinaBean;
-use App\Config\Connection as ConfigConnection;
-use Config\Connection;
-use App\Vo\OficinaVo;
 
 class OficinaModel
 {
@@ -16,8 +13,13 @@ class OficinaModel
       $this->bean = new OficinaBean();    
     }
 
-    public function getOficinaPorId(OficinaVo $oficina) 
+    public function getOficinaPorId($id) 
     {
-        return $this->bean->retornaOficinaPorId($oficina)
-;    }
+        return $this->bean->retornaOficinaPorId($id);
+    }
+
+    public function getTodasOficinas() 
+    {
+        return $this->bean->retornaTodasOficinas();
+    }
 }

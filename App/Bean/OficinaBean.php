@@ -20,12 +20,17 @@ class OficinaBean
      * @return 0 se não encontrar dados
      */
 
-    public function retornaOficinaPorId(OficinaVo $vo)
+    public function retornaOficinaPorId($id)
     {
-        if(is_numeric($vo->__get('cdOficina')) && !empty($vo->__get('cdOficina'))){
-            return json_encode(array('status' => 'success', 'data' => $this->dao->getOficinaPorId($vo)));
+        if(is_numeric($id)){
+            return json_encode(array('status' => 'success', 'data' => $this->dao->getOficinaPorId($id)), JSON_PRETTY_PRINT);
         }
         return 0;
+    }
+
+    public function retornaTodasOficinas()
+    {
+         return json_encode(array('status' => 'success', 'data' => $this->dao->getTodasOficinas()),  JSON_OBJECT_AS_ARRAY);
     }
 
 }

@@ -7,12 +7,14 @@ use App\Models\OficinaModel;
 
 class OficinaController
 {
-    public static function get(OficinaVo $vo)
+    public static function get($id = null)
     {
-        if(isset($vo) && is_numeric($vo->__get('cdOficina')))
+        $oficina = new OficinaModel();
+        if(is_numeric($id))
         {
-            $oficina = new OficinaModel();
-            return $oficina->getOficinaPorId($vo);
+            return $oficina->getOficinaPorId($id);
+        } else {
+            return $oficina->getTodasOficinas();
         }
     }
 
