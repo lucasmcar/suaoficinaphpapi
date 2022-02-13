@@ -22,8 +22,6 @@ if($_GET['url']){
         } catch (\Exception $e) {
 
         }
-
-
     }
 
 }

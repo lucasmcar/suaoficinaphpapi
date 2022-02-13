@@ -4,18 +4,15 @@ namespace App\Dao;
 
 use App\Config\Connection;
 
-class OficinaDao
+class VeiculoDao
 {
-
-    private $con;
-
-    public function getOficinaPorId($id)
+    public function getVeiculoPorId($idveiculo)
     {
         try{
             $this->con = Connection::getConnection();
-            $sql = "SELECT nmoficina AS Oficina FROM oficina WHERE cdoficina = :cdoficina";
+            $sql = "SELECT nmoveiculo AS Modelo FROM veiculo WHERE cdveiculo = :cdveiculo";
             $stmt = $this->con->prepare($sql);
-            $stmt->bindValue(':cdoficina', intval($id));
+            $stmt->bindValue(':cdveiculo', intval($idveiculo));
             $stmt->execute();
             
             if($stmt->rowCount() > 0){
@@ -27,11 +24,29 @@ class OficinaDao
         
     }
 
-    public function getTodasOficinas()
+    public function getVeiculoPorPlaca($placa)
     {
         try{
             $this->con = Connection::getConnection();
-            $sql = strval(Connection::getSelectcolumns('oficina', array('cdoficina', 'nmoficina')));
+            $sql = "SELECT nmveiculo AS Modelo FROM veiculo WHERE placa = :placa";
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindValue(':placa', $placa);
+            $stmt->execute();
+            
+            if($stmt->rowCount() > 0){
+                return $stmt->fetch(\PDO::FETCH_ASSOC);
+            }
+        } catch(\PDOException $ex){
+            return "Erro ao procurar: " .$ex->getMessage();
+        }
+        
+    }
+
+    public function getTodosVeiculos()
+    {
+        try{
+            $this->con = Connection::getConnection();
+            $sql = strval(Connection::getSelectcolumns('veiculo', array('nmveiculo', 'nrporta', 'placa', 'cor')));
             $stmt = $this->con->prepare($sql);
             $stmt->execute();
             
@@ -48,5 +63,4 @@ class OficinaDao
         }
         
     }
-    
 }

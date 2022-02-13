@@ -3,7 +3,7 @@
 namespace App\Bean;
 
 use App\Dao\OficinaDao;
-use App\Vo\OficinaVo;
+
 
 class OficinaBean
 {
